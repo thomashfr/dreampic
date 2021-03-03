@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { User } from 'src/app/core/user/user';
+import { UserService } from 'src/app/core/user/user.service';
+import { ToastSevice } from 'src/app/shared/components/toast/toast.service';
 import { PhotoService } from '../photo/photo.service';
 
 @Component({
@@ -16,6 +19,8 @@ export class PhotoFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private photoService: PhotoService,
     private router: Router,
+    private toastService: ToastSevice,
+    private userService: UserService,
   ) {}
 
   ngOnInit() {
@@ -31,7 +36,10 @@ export class PhotoFormComponent implements OnInit {
     const allowComments = this.photoForm.get('allowComments').value;
     this.photoService
       .upload(description, allowComments, this.file)
-      .subscribe(() => this.router.navigate(['']));
+      .subscribe(() => {
+        this.toastService.success('Upload complete', true);
+        this.router.navigate(['/user', this.userService.getUserName()]);
+      });
   }
 
   handleFile(file: File) {

@@ -1,0 +1,6 @@
+<div
+  *ngFor="let toast of toasts"
+  class="text-center {{ getToastClass(toast) }}"
+>
+  {{ toast.message }}
+</div>
