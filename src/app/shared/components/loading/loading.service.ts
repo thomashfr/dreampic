@@ -11,12 +11,12 @@ export class LoadingService {
   getLoading() {
     return this.loadingSubject
       .asObservable()
-      .pipe(startWith(LoadingType.STOPED));
+      .pipe(startWith(LoadingType.STOPPED));
   }
   start() {
     this.loadingSubject.next(LoadingType.LOADING);
   }
   stop() {
-    this.loadingSubject.next(LoadingType.STOPED);
+    this.loadingSubject.next(LoadingType.STOPPED);
   }
 }
